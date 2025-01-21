@@ -1,0 +1,41 @@
+﻿@model LibraryManagementSystem.Models.Category
+@{
+    ViewData["Title"] = "Yeni Kategori";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Yeni Kategori Oluştur</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/Admin/Categories/Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Name</label>
+                            <input type="text" name="Name" id="Name" class="form-control" required />
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Kaydet
+                            </button>
+                            <a href="/admin/categories/index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Listeye Dön
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} 

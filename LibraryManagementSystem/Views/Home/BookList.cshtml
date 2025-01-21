@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LibraryManagementSystem.Models.Book>
+
+@{
+    ViewData["Title"] = "Kitap Listesi";
+}
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kitap Adı</th>
+            <th>Yazar</th>
+            <th>Fiyat</th>
+            <th>Basım Yılı</th>
+            <th>Kategori</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td>@book.DailyRentalPrice</td>
+                <td>@book.PublishYear</td>
+                <td>@book.Category.Name</td>
+                <td class="@(book.IsAvailable ? "text-primary" : "text-danger")">@(book.IsAvailable ? "Mevcut" : "Mevcut Değil")</td>
+                <td>
+                    @if (book.IsAvailable)
+                    {
+                        <a href="javascript:void(0);" onclick="rentBook('@book.Id')" class="btn btn-primary btn-sm">
+                            <i class="bi bi-pencil">Kirala</i>
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function rentBook(bookId) {
+        fetch('/Home/Rent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookId)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success == true) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert("Kiralama işlemi başarısız: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+            });
+    }
+</script>

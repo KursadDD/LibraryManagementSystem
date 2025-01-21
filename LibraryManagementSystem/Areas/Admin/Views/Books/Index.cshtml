@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LibraryManagementSystem.Models.Book>
+
+@{
+    ViewData["Title"] = "Kitap Listesi";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="row mb-3">
+    <div class="col-md-12 text-end">
+        <a href="/admin/books/create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"> Yeni Kitap</i>
+        </a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kitap Adı</th>
+            <th>Yazar</th>
+            <th>Fiyat</th>
+            <th>Basım Yılı</th>
+            <th>Kategori</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td>@book.DailyRentalPrice</td>
+                <td>@book.PublishYear</td>
+                <td>@book.Category.Name</td>
+                <td class="@(book.IsAvailable ? "text-primary" : "text-danger")">@(book.IsAvailable ? "Mevcut" : "Mevcut Değil")</td>
+                <td>
+                    <a class="btn btn-primary btn-sm">
+                        <i class="bi bi-pencil">Düzenle</i>
+                    </a>
+                    <a class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash">Sil</i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

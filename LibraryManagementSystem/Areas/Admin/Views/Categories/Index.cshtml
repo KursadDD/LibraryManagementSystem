@@ -1,0 +1,36 @@
+﻿@model IEnumerable<LibraryManagementSystem.Models.Category>
+
+@{
+    ViewData["Title"] = "Kategori Listesi";
+}
+<h1>@ViewData["Title"]</h1>
+<div class="row mb-3">
+    <div class="col-md-12 text-end">
+        <a href="/admin/categories/create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"> Yeni Kategori</i>
+        </a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Adı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Name</td>
+                <td>
+                    <a class="btn btn-primary btn-sm">
+                        <i class="bi bi-pencil">Düzenle</i>
+                    </a>
+                    <a class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash">Sil</i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
